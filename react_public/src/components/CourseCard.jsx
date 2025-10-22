@@ -16,20 +16,22 @@ export function CourseCard({ course }) {
   };
 
   return (
-    <Card className="course-card mb-4">
+    <Card className="course-card mb-6">
       <CardHeader
         onClick={toggleExpand}
-        className="cursor-pointer flex justify-between items-center p-4 bg-gray-50"
+        className="course-header cursor-pointer flex justify-between items-center p-5"
       >
         <div>
-          <Typography variant="h5" color="blue-gray">
+          <Typography variant="h5" className="course-title">
             {course.name}
           </Typography>
-          <Typography color="gray" className="mt-1 font-normal">
-            {course.code}
-          </Typography>
+          <Typography className="course-code mt-1">{course.code}</Typography>
         </div>
-        <IconButton variant="text" size="sm">
+        <IconButton
+          variant="text"
+          size="sm"
+          className="text-gray-500 hover:text-blue-600 transition-colors"
+        >
           {isExpanded ? (
             <ChevronUpIcon className="h-5 w-5" />
           ) : (
@@ -38,28 +40,30 @@ export function CourseCard({ course }) {
         </IconButton>
       </CardHeader>
       {isExpanded && (
-        <CardBody>
-          <div className="course-card__status">
-            <div className="status-text">
+        <CardBody className="px-5 py-4">
+          <div className="flex items-center justify-between">
+            <div className="font-jakarta text-sm text-gray-600">
               Last Updated: {new Date(course.lastUpdate).toLocaleDateString()}
             </div>
             {course.isNew && (
-              <div className="flex items-center">
-                <span className="status-icon--new">●</span>
-                <span className="status-text ml-1">New</span>
-              </div>
+              <div className="status-badge status-badge--new">New Content</div>
             )}
           </div>
           {course.materials && course.materials.length > 0 && (
-            <div className="mt-4">
-              <Typography variant="h6" color="blue-gray" className="mb-2">
+            <div className="materials-list">
+              <Typography
+                variant="h6"
+                className="font-montserrat text-gray-800 mb-3"
+              >
                 Materials
               </Typography>
-              <ul className="space-y-2">
+              <ul className="space-y-1">
                 {course.materials.map((material, index) => (
-                  <li key={index} className="flex items-center gap-2">
-                    <span className="text-blue-600">●</span>
-                    <Typography>{material.name}</Typography>
+                  <li key={index} className="material-item">
+                    <span className="material-icon">•</span>
+                    <Typography className="font-jakarta">
+                      {material.name}
+                    </Typography>
                   </li>
                 ))}
               </ul>

@@ -6,10 +6,17 @@ function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-gray-50">
-        <header className="bg-blue-600 text-white p-4 shadow-md">
-          <h1 className="text-2xl font-semibold">UAJY Course Tracker</h1>
+        <header className="app-header p-6 shadow-lg">
+          <div className="container mx-auto">
+            <h1 className="text-3xl font-montserrat font-bold tracking-tight">
+              UAJY Course Tracker
+            </h1>
+            <p className="text-blue-100 font-jakarta mt-1">
+              Track your academic journey
+            </p>
+          </div>
         </header>
-        <main className="container mx-auto py-6">
+        <main className="container mx-auto py-8 px-4">
           <CourseList />
         </main>
       </div>
