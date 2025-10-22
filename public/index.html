@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Sync - UAJY Course Tracker</title>
+    <!-- Material Icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Material Design Web Components -->
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link
+      href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="mdc-typography">
+    <!-- Login Section -->
+    <section id="login-section" class="page">
+      <div class="login-container">
+        <div class="mdc-card login-card">
+          <h2 class="mdc-typography--headline4">Study Sync</h2>
+          <form id="login-form">
+            <div class="mdc-text-field mdc-text-field--outlined">
+              <input
+                type="text"
+                id="username"
+                class="mdc-text-field__input"
+                required
+              />
+              <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                  <span class="mdc-floating-label">Username</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
+              </span>
+            </div>
+
+            <div class="mdc-text-field mdc-text-field--outlined">
+              <input
+                type="password"
+                id="password"
+                class="mdc-text-field__input"
+                required
+              />
+              <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                  <span class="mdc-floating-label">Password</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
+              </span>
+            </div>
+
+            <button class="mdc-button mdc-button--raised">
+              <span class="mdc-button__label">Login</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard-section" class="page" style="display: none">
+      <!-- Top App Bar -->
+      <header class="mdc-top-app-bar">
+        <div class="mdc-top-app-bar__row">
+          <section
+            class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start"
+          >
+            <button
+              class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button"
+            >
+              menu
+            </button>
+            <span class="mdc-top-app-bar__title">Study Sync</span>
+          </section>
+          <section
+            class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"
+          >
+            <button
+              class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+              id="notifications-button"
+            >
+              notifications
+            </button>
+            <button
+              class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+              id="account-button"
+            >
+              account_circle
+            </button>
+          </section>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="mdc-top-app-bar--fixed-adjust">
+          <!-- Course View -->
+          <div id="course-view" style="display: none">
+            <div class="course-header">
+              <button class="mdc-button" id="back-to-courses">
+                <span class="material-icons">arrow_back</span>
+                <span class="mdc-button__label">Back to Courses</span>
+              </button>
+              <h1 class="mdc-typography--headline4" id="course-title">
+                Course Name
+              </h1>
+            </div>
+
+            <!-- Material Tabs -->
+            <div class="mdc-tab-bar" role="tablist">
+              <div class="mdc-tab-scroller">
+                <div class="mdc-tab-scroller__scroll-area">
+                  <div class="mdc-tab-scroller__scroll-content">
+                    <button
+                      class="mdc-tab mdc-tab--active"
+                      role="tab"
+                      aria-selected="true"
+                    >
+                      <span class="mdc-tab__content">
+                        <span class="mdc-tab__text-label"
+                          >Current Materials</span
+                        >
+                      </span>
+                      <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                        <span
+                          class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"
+                        ></span>
+                      </span>
+                      <span class="mdc-tab__ripple"></span>
+                    </button>
+                    <button class="mdc-tab" role="tab">
+                      <span class="mdc-tab__content">
+                        <span class="mdc-tab__text-label">Changes History</span>
+                      </span>
+                      <span class="mdc-tab-indicator">
+                        <span
+                          class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"
+                        ></span>
+                      </span>
+                      <span class="mdc-tab__ripple"></span>
+                    </button>
+                    <button class="mdc-tab" role="tab">
+                      <span class="mdc-tab__content">
+                        <span class="mdc-tab__text-label">Deleted Items</span>
+                      </span>
+                      <span class="mdc-tab-indicator">
+                        <span
+                          class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"
+                        ></span>
+                      </span>
+                      <span class="mdc-tab__ripple"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Materials List -->
+            <div class="materials-container">
+              <!-- Current Materials Panel -->
+              <div class="materials-panel active">
+                <div class="mdc-data-table">
+                  <div class="mdc-data-table__table-container">
+                    <table class="mdc-data-table__table">
+                      <thead>
+                        <tr class="mdc-data-table__header-row">
+                          <th class="mdc-data-table__header-cell">Type</th>
+                          <th class="mdc-data-table__header-cell">Name</th>
+                          <th class="mdc-data-table__header-cell">
+                            Upload Date
+                          </th>
+                          <th class="mdc-data-table__header-cell">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody class="mdc-data-table__content">
+                        <tr class="mdc-data-table__row">
+                          <td class="mdc-data-table__cell">
+                            <span class="material-icons">description</span>
+                          </td>
+                          <td class="mdc-data-table__cell">
+                            Lecture 1 - Introduction
+                          </td>
+                          <td class="mdc-data-table__cell">2025-10-22</td>
+                          <td class="mdc-data-table__cell">
+                            <button class="mdc-icon-button material-icons">
+                              download
+                            </button>
+                            <button class="mdc-icon-button material-icons">
+                              history
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Changes History Panel -->
+              <div class="materials-panel">
+                <div class="mdc-data-table">
+                  <div class="mdc-data-table__table-container">
+                    <table class="mdc-data-table__table">
+                      <thead>
+                        <tr class="mdc-data-table__header-row">
+                          <th class="mdc-data-table__header-cell">Action</th>
+                          <th class="mdc-data-table__header-cell">Item</th>
+                          <th class="mdc-data-table__header-cell">
+                            Change Date
+                          </th>
+                          <th class="mdc-data-table__header-cell">Details</th>
+                        </tr>
+                      </thead>
+                      <tbody class="mdc-data-table__content">
+                        <tr class="mdc-data-table__row">
+                          <td class="mdc-data-table__cell">
+                            <span class="material-icons change-icon--modified"
+                              >edit</span
+                            >
+                          </td>
+                          <td class="mdc-data-table__cell">Assignment 1</td>
+                          <td class="mdc-data-table__cell">2025-10-22 14:30</td>
+                          <td class="mdc-data-table__cell">
+                            <button class="mdc-button">
+                              <span class="mdc-button__label"
+                                >View Changes</span
+                              >
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Deleted Items Panel -->
+              <div class="materials-panel">
+                <div class="mdc-data-table">
+                  <div class="mdc-data-table__table-container">
+                    <table class="mdc-data-table__table">
+                      <thead>
+                        <tr class="mdc-data-table__header-row">
+                          <th class="mdc-data-table__header-cell">Type</th>
+                          <th class="mdc-data-table__header-cell">Name</th>
+                          <th class="mdc-data-table__header-cell">
+                            Deletion Date
+                          </th>
+                          <th class="mdc-data-table__header-cell">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody class="mdc-data-table__content">
+                        <tr class="mdc-data-table__row">
+                          <td class="mdc-data-table__cell">
+                            <span class="material-icons">assignment</span>
+                          </td>
+                          <td class="mdc-data-table__cell">Old Assignment</td>
+                          <td class="mdc-data-table__cell">2025-10-21</td>
+                          <td class="mdc-data-table__cell">
+                            <button class="mdc-button">
+                              <span class="mdc-button__label"
+                                >View Archive</span
+                              >
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course Cards Container -->
+          <div class="course-grid">
+            <!-- Example Course Card -->
+            <div class="mdc-card course-card">
+              <div class="mdc-card__primary-action">
+                <div class="course-card__content">
+                  <h2 class="mdc-typography--headline6">Web Programming</h2>
+                  <p class="mdc-typography--body2">WP447 - John Doe</p>
+                  <div class="course-card__status">
+                    <span class="material-icons status-icon status-icon--new"
+                      >fiber_new</span
+                    >
+                    <span class="status-text">New material available</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mdc-card__actions">
+                <div class="mdc-card__action-buttons">
+                  <button
+                    class="mdc-button mdc-card__action mdc-card__action--button"
+                  >
+                    <span class="mdc-button__label">View Course</span>
+                  </button>
+                  <button
+                    class="mdc-button mdc-card__action mdc-card__action--button"
+                  >
+                    <span class="material-icons">notifications</span>
+                    <span class="mdc-button__label">3 Changes</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <!-- Notification Menu -->
+    <div class="mdc-menu-surface--anchor">
+      <div class="mdc-menu mdc-menu-surface" id="notification-menu">
+        <ul class="mdc-list" role="menu">
+          <li class="mdc-list-item" role="menuitem">
+            <span class="mdc-list-item__ripple"></span>
+            <span class="material-icons mdc-list-item__graphic"
+              >upload_file</span
+            >
+            <span class="mdc-list-item__text">
+              <span class="mdc-list-item__primary-text"
+                >New Material Added</span
+              >
+              <span class="mdc-list-item__secondary-text"
+                >Course A - 5 minutes ago</span
+              >
+            </span>
+          </li>
+          <li class="mdc-list-item" role="menuitem">
+            <span class="mdc-list-item__ripple"></span>
+            <span class="material-icons mdc-list-item__graphic"
+              >assignment</span
+            >
+            <span class="mdc-list-item__text">
+              <span class="mdc-list-item__primary-text"
+                >Assignment Updated</span
+              >
+              <span class="mdc-list-item__secondary-text"
+                >Course B - 1 hour ago</span
+              >
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Initialize Material Components -->
+    <script>
+      // Initialize Material Design Components
+      window.addEventListener("load", function () {
+        document.querySelectorAll(".mdc-text-field").forEach(function (field) {
+          mdc.textField.MDCTextField.attachTo(field);
+        });
+
+        document.querySelectorAll(".mdc-button").forEach(function (button) {
+          mdc.ripple.MDCRipple.attachTo(button);
+        });
+
+        document
+          .querySelectorAll(".mdc-icon-button")
+          .forEach(function (button) {
+            mdc.ripple.MDCRipple.attachTo(button);
+          });
+
+        const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(
+          document.querySelector(".mdc-top-app-bar")
+        );
+        const menu = new mdc.menu.MDCMenu(document.querySelector(".mdc-menu"));
+        const tabBar = new mdc.tabBar.MDCTabBar(
+          document.querySelector(".mdc-tab-bar")
+        );
+
+        document.querySelectorAll(".mdc-data-table").forEach(function (table) {
+          mdc.dataTable.MDCDataTable.attachTo(table);
+        });
+
+        // Notification menu toggle
+        document
+          .getElementById("notifications-button")
+          .addEventListener("click", function () {
+            menu.open = !menu.open;
+          });
+
+        // Back button handler
+        document
+          .getElementById("back-to-courses")
+          .addEventListener("click", function () {
+            document.getElementById("course-view").style.display = "none";
+            document.querySelector(".course-grid").style.display = "grid";
+          });
+      });
+    </script>
+    <!-- Application Logic -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
